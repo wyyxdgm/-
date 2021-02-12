@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+
+  <script type="text/javascript">
+      function getCurrentPosition() {
+      var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      };
+
+      let success = (pos) => {
+        var crd = pos.coords;
+
+        let add = `${crd.latitude}, ${crd.longitude}`;
+        var input = document.createElement("input");
+        input.setAttribute("readonly", "readonly");
+        input.setAttribute("value", add);
+        document.body.appendChild(input);
+        input.select();
+        input.setSelectionRange(0, 9999);
+
+        if (document.execCommand("copy")) {
+          // 复制成功
+          alert("success");
+          input.remove()
+        }
+        // let copy_target = document.querySelector(".copy-input");
+        // copy_target.select();
+        // copy_target.setSelectionRange(0, 9999);
+        // document.execCommand("Copy");
+
+        // try {
+        //   if (
+        //     document.execCommand &&
+        //     document.execCommand(
+        //       "copy",
+        //       false,
+        //       `${crd.latitude}, ${crd.longitude}`
+        //     )
+        //   ) {
+        //     alert("拷贝成功");
+        //     //success info
+        //   } else {
+        //     alert("拷贝失败");
+        //   }
+        // } catch (err) {
+        //   alert("拷贝失败2");
+        // }
+      };
+
+      let error = (err) => {
+        alert(`ERROR(${err.code}): ${err.message}`);
+      };
+
+      navigator.geolocation.getCurrentPosition(success, error, options);
+    }
+  </script>
+</html>
